@@ -29,31 +29,6 @@
     </entry>
     
     
-    
-    <entry>
-      <title>C#—C#概述</title>
-      <link href="/2023/05/28/Csharp_CsharpSummary/"/>
-      <url>/2023/05/28/Csharp_CsharpSummary/</url>
-      
-        <content type="html"><![CDATA[<hr><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是我的第一个关于编程语言的博客，出这个C#系列一是为了巩固复习，前段时间发现这些基本知识快忘的差不多了2333，二是为了熟悉一下编写博客的一些基础知识，了解Markdown的具体使用，算是为了对前端三件套有一点了解，方便之后的学习吧。</p><h1 id="什么是C"><a href="#什么是C" class="headerlink" title="什么是C#"></a>什么是C#</h1><p>微软开发的一门语言，结合了c++、Java的一些特点，它是.NET框架的一部分，用于编写.NET程序。</p><h1 id="什么是-NET-Framework"><a href="#什么是-NET-Framework" class="headerlink" title="什么是.NET Framework"></a>什么是.NET Framework</h1><p>相当于一个巨大的代码库，用于编写Windows或者Web应用程序，该框架支持多种语言，编写的应用程序支持多种平台。</p><h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><h2 id="三大基本特征"><a href="#三大基本特征" class="headerlink" title="三大基本特征"></a>三大基本特征</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>把系统中需要处理的数据和在这些数据的上处理的操作结合在一起，根据功能、性质和用途等因素抽象成一个类。</p><h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>一个类可以继承另一个类的状态和行为，前者称为子类，后者称为父类。</p><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p> 指一个程序中同名方法共存的情况，调用者根据不同情况用同一个方法名去实现不同的功能，即一个方法有多个重载的情况。</p><h2 id="五大原则"><a href="#五大原则" class="headerlink" title="五大原则"></a>五大原则</h2><h3 id="单一职责"><a href="#单一职责" class="headerlink" title="单一职责"></a>单一职责</h3><p>一个类应当只有一个职责。如果有多个职责，这些职责会耦合在一起，相互影响，降低了程序的复用性。</p><h3 id="开放封闭"><a href="#开放封闭" class="headerlink" title="开放封闭"></a>开放封闭</h3><p>软件实体应当是可扩展的，而不可修改的。</p><h3 id="里氏替换"><a href="#里氏替换" class="headerlink" title="里氏替换"></a>里氏替换</h3><p>(1)子类必须实现父类的抽象方法，不能重写（覆盖）父类非抽象方法（已实现）方法。<br>(2)子类可以有自己的方法。<br>(3)当重写或实现父类方法时，子类方法的形参（前置条件）比父类方法的参数更宽松。<br>(4)当实现父类抽象方法时，子类方法的返回值（后置条件）比父类更严格。</p><h3 id="依赖倒置"><a href="#依赖倒置" class="headerlink" title="依赖倒置"></a>依赖倒置</h3><p>程序依赖于抽象接口而不是具体实现。也就是在某个对象与实现模块之间加入接口，降低它们之间的耦合。</p><h3 id="接口隔离"><a href="#接口隔离" class="headerlink" title="接口隔离"></a>接口隔离</h3><p>在设计时，采用多个与特定对象有关的接口比采用一个通用接口更好。也就是多个对象对一个实现模块有所需求的时候，那么这个模块应当对每个对象各提供一个接口，实现接口的隔离。<br><img src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202305292252785.jpg" alt="image_CsharpSummary"></p><hr>]]></content>
-      
-      
-      <categories>
-          
-          <category> -编程语言 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> -C# </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
   
   
 </search>
