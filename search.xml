@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>个人开发的小游戏——project1024</title>
+      <link href="/2023/07/09/project1024/"/>
+      <url>/2023/07/09/project1024/</url>
+      
+        <content type="html"><![CDATA[<hr><p>终于，我已基本完成了这个小游戏的开发，这是从开始学习C#、unity以来的第一个完整demo。这个项目不是跟着b站大佬写的，所以玩法很烂，主要用于提高自己实际开发的能力。本来想用来当实习demo的，但是这东西太烂了（我都不好意思拿出手），然后已读不回，就这样吧，放出度盘链接。<br><a href="bandicam.mp4" title="shipin">点击下载</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> -游戏开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> -project 1024 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hexo+GitHub搭建个人博客</title>
       <link href="/2023/05/30/PersonalBlogBuild/"/>
       <url>/2023/05/30/PersonalBlogBuild/</url>
