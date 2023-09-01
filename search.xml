@@ -4,11 +4,38 @@
   
     
     <entry>
+      <title>每日一道算法题</title>
+      <link href="/2023/09/01/niukecode/"/>
+      <url>/2023/09/01/niukecode/</url>
+      
+        <content type="html"><![CDATA[<hr><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>简介：以博客的形式来监督自己，提升自己的编程能力。<br>题目来源：牛客网大厂仿真算法题<br>编程语言：C#</p><hr><h3 id="编号：FZ44-只出现一次的牛II"><a href="#编号：FZ44-只出现一次的牛II" class="headerlink" title=" 编号：FZ44 只出现一次的牛II"></a><font color = LightSeaGreen> 编号：FZ44 只出现一次的牛II</h3><p>日期：2023-09-01<br></font><br>题目：在动物牛的世界中，有一群牛，它们以整数数组的形式排列。除了其中两个牛只出现一次外，其他牛都恰好出现两次。请你设计一个算法，找出并返回那两个只出现一次的牛的编号。返回顺序按照递增序。<br>示例1</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入:[1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6, 0]</span><br><span class="line">返回值：[0,4]</span><br></pre></td></tr></table></figure><p>示例2</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入:[1, 2, 0, 4, 1, 4, 3, 3]</span><br><span class="line">返回值：[0,2]</span><br></pre></td></tr></table></figure><p>备注：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入:[1, 2, 0, 4, 1, 4, 3, 3]</span><br><span class="line">返回值：[0,2]</span><br></pre></td></tr></table></figure><p>思路：<br>采用一般思路，使用两层循环来完成操作，外层循环用来记录当前判断的数，内层循环则代表和外层循环需要对比的数，需要注意的是对比时的条件，首先得排除和自己进行比较，再判断两个值是否相等，如果都满足，说明至少出现了两次，则标记这个数不是要寻找的数，并停止当前这个数的与其他数的比较，进入下一个数的判断，也就是下一个外循环。<br>核心代码1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;int&gt; findSingleCowsII(List&lt;int&gt; nums) &#123;</span><br><span class="line">    List&lt;int&gt; result = new List&lt;int&gt;();</span><br><span class="line"></span><br><span class="line">    for (int i = 0; i &lt; nums.Count; i++) &#123;</span><br><span class="line">        bool isSingle = true; // 标记是否只出现一次</span><br><span class="line"></span><br><span class="line">        for (int j = 0; j &lt; nums.Count; j++) &#123;</span><br><span class="line">            if (i != j &amp;&amp; nums[i] == nums[j]) &#123;</span><br><span class="line">                isSingle = false; // 不只出现一次</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (isSingle) &#123;</span><br><span class="line">            result.Add(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    result.Sort();//排序</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>将我的代码发给AI后，AI给出了另一种更好的方法,使用字典来完成，具体代码如下。<br>核心代码2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;int&gt; findSingleCowsII(List&lt;int&gt; nums) &#123;</span><br><span class="line">    Dictionary&lt;int, int&gt; countMap = new Dictionary&lt;int, int&gt;();</span><br><span class="line">    List&lt;int&gt; result = new List&lt;int&gt;();</span><br><span class="line"></span><br><span class="line">// 计数每个元素的出现次数</span><br><span class="line">    foreach (int num in nums) &#123;</span><br><span class="line">        if (countMap.ContainsKey(num)) &#123;</span><br><span class="line">            countMap[num]++;//如果字典中存在该键，将对应键的值加一</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            countMap[num] = 1;//如果不存在，将键的值设为一</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// 将键值为一的元素添加到结果列表中</span><br><span class="line">    foreach (KeyValuePair&lt;int, int&gt; pair in countMap) &#123;</span><br><span class="line">        if (pair.Value == 1) &#123;</span><br><span class="line">            result.Add(pair.Key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    result.Sort(); // 排序</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> -算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> -C# </tag>
+            
+            <tag> -牛客网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>我复刻了一个经典小游戏：2048</title>
       <link href="/2023/08/01/game2048/"/>
       <url>/2023/08/01/game2048/</url>
       
-        <content type="html"><![CDATA[<hr><h3 id="欢迎下载"><a href="#欢迎下载" class="headerlink" title="欢迎下载"></a><font color = Gray>欢迎下载</font></h3><p><font color = Gray> 最近复刻了一个经典小游戏2048，复刻这个游戏一是因为我以前很喜欢玩，二是这个游戏在各个国内3a大作的小程序里几乎都能搜到，但是广告满天飞，什么看视频免费复活、不小心点一个按钮就进入其他小程序之类的事情是经常发生。这个复刻版主打的就是一个纯净无广告，还原经典。</font><br><font color = Gray>2048是一个基于数字方块合并的休闲益智游戏，玩家通过滑动屏幕或按键来合并相同数字方块，方块占满方格且不能合并时游戏结束。</font><br><font color = Gray>下面是网盘链接链接：<a href="https://pan.baidu.com/s/1j-owHfDWKiuje_-09QlkcQ?pwd=1nv2">https://pan.baidu.com/s/1j-owHfDWKiuje_-09QlkcQ?pwd=1nv2</a></font>  </p><p><font color = LightSeaGreen> 2023-08-28 更新 Version1.1</font><br><font color = Gray>–修复了pc端和安卓端刚进入游戏时移动方块错位的bug<br>–添加了应用图标<br>–更改了方块的生成逻辑，每次生成方块有一定概率会生成数字为4的方块</font></p><hr>]]></content>
+        <content type="html"><![CDATA[<hr><h3 id="欢迎下载"><a href="#欢迎下载" class="headerlink" title="欢迎下载"></a>欢迎下载</h3><p>最近复刻了一个经典小游戏2048，复刻这个游戏一是因为我以前很喜欢玩，二是这个游戏在各个国内3a大作的小程序里几乎都能搜到，但是广告满天飞，什么看视频免费复活、不小心点一个按钮就进入其他小程序之类的事情是经常发生。这个复刻版主打的就是一个纯净无广告，还原经典。<br>2048是一个基于数字方块合并的休闲益智游戏，玩家通过滑动屏幕或按键来合并相同数字方块，方块占满方格且不能合并时游戏结束。<br>下面是网盘链接链接：<a href="https://pan.baidu.com/s/1j-owHfDWKiuje_-09QlkcQ?pwd=1nv2">https://pan.baidu.com/s/1j-owHfDWKiuje_-09QlkcQ?pwd=1nv2</a> </p><p><font color = LightSeaGreen> 2023-08-28 更新 Version1.1</font><br><font color = Gray>–修复了pc端和安卓端刚进入游戏时移动方块错位的bug<br>–添加了应用图标<br>–更改了方块的生成逻辑，每次生成方块有一定概率会生成数字为4的方块</font></p><hr>]]></content>
       
       
       <categories>
@@ -19,6 +46,8 @@
       
       
         <tags>
+            
+            <tag> -C# </tag>
             
             <tag> -Unity </tag>
             
@@ -33,7 +62,7 @@
       <link href="/2023/07/09/project1024/"/>
       <url>/2023/07/09/project1024/</url>
       
-        <content type="html"><![CDATA[<hr><h3 id="欢迎下载体验我的游戏Demo！"><a href="#欢迎下载体验我的游戏Demo！" class="headerlink" title=" 欢迎下载体验我的游戏Demo！"></a><font color = Gray> 欢迎下载体验我的游戏Demo！</font></h3><p><font color = Gray> 这是一个俯视角休闲射击小Demo，玩家通过控制角色进行战斗，敌人死亡会掉落道具，增加得分，拾取道具来增强角色、恢复血量和子弹</font><br><font color = Gray>百度网盘链接：<a href="https://pan.baidu.com/s/1IlXPFWFk-lt80ivnALOcOQ?pwd=z05o">https://pan.baidu.com/s/1IlXPFWFk-lt80ivnALOcOQ?pwd=z05o</a></font>  </p><hr>]]></content>
+        <content type="html"><![CDATA[<hr><h3 id="欢迎下载体验我的游戏Demo"><a href="#欢迎下载体验我的游戏Demo" class="headerlink" title="欢迎下载体验我的游戏Demo!"></a>欢迎下载体验我的游戏Demo!</h3><p>这是一个俯视角休闲射击小Demo，玩家通过控制角色进行战斗，敌人死亡会掉落道具，增加得分，拾取道具来增强角色、恢复血量和子弹<br>百度网盘链接：<a href="https://pan.baidu.com/s/1IlXPFWFk-lt80ivnALOcOQ?pwd=z05o">https://pan.baidu.com/s/1IlXPFWFk-lt80ivnALOcOQ?pwd=z05o</a></p><hr>]]></content>
       
       
       <categories>
@@ -44,6 +73,8 @@
       
       
         <tags>
+            
+            <tag> -C# </tag>
             
             <tag> -Unity </tag>
             
