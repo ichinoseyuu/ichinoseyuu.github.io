@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>YOLOv6_Traffic_signs | Ichinoseyuu的小站</title><meta name="author" content="Ichinoseyuu"><meta name="copyright" content="Ichinoseyuu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧。 一、环境搭建 1.下载并安装 Acnconda3 2.查看系统版本支持 3.选择 Tensorflow 版本 4.下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹 5.检查是否配置成功 1nvcc -V #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLOv6_Traffic_signs">
+<meta property="og:url" content="https://ichinoseyuu.github.io/2024/03/28/YOLOv6-Traffic-signs/index.html">
+<meta property="og:site_name" content="Ichinoseyuu的小站">
+<meta property="og:description" content="时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧。 一、环境搭建 1.下载并安装 Acnconda3 2.查看系统版本支持 3.选择 Tensorflow 版本 4.下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹 5.检查是否配置成功 1nvcc -V #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ichinoseyuu.github.io/img/touxiang.png">
+<meta property="article:published_time" content="2024-03-28T01:12:24.000Z">
+<meta property="article:modified_time" content="2024-03-28T01:33:42.222Z">
+<meta property="article:author" content="Ichinoseyuu">
+<meta property="article:tag" content="-Python">
+<meta property="article:tag" content="-深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ichinoseyuu.github.io/img/touxiang.png"><link rel="shortcut icon" href="/img/touxiang.png"><link rel="canonical" href="https://ichinoseyuu.github.io/2024/03/28/YOLOv6-Traffic-signs/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'YOLOv6_Traffic_signs',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-03-28 09:33:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/iconfont1.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/timeline/"><i class="fa-fw fas fa-timeline"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202305301714146.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Ichinoseyuu的小站"><span class="site-name">Ichinoseyuu的小站</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/timeline/"><i class="fa-fw fas fa-timeline"></i><span> 日志</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">YOLOv6_Traffic_signs</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-28T01:12:24.000Z" title="发表于 2024-03-28 09:12:24">2024-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-28T01:33:42.222Z" title="更新于 2024-03-28 09:33:42">2024-03-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">-毕业设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="YOLOv6_Traffic_signs"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧。</p>
+<p>一、环境搭建 1.下载并安装 Acnconda3</p>
+<p>2.查看系统版本支持<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280921933.png" alt="系统版本支持"></p>
+<p>3.选择 Tensorflow 版本<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280922051.png" alt="Tensorflow版本"></p>
+<p>4.下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹</p>
+<p>5.检查是否配置成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V ##查看安装状态</span><br></pre></td></tr></table></figure>
+
+<p>6.用 Anaconda 配置虚拟环境 Tensorflow24</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conda create -n Tensorflow24 python=3.8 ##创建一个虚拟环境</span><br><span class="line">conda activate Tensorflow24  ##进入环境</span><br><span class="line">##安装Tensorflow2.4</span><br><span class="line">pip install tensorflow==2.4.0 -i https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">##安装相同版本的keras</span><br><span class="line">pip install keras==2.4.0 -i https://pypi.mirrors.ustc.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>7.检查是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python                 #进入python环境</span><br><span class="line">import tensorflow as tf    #导入Tensorflow</span><br><span class="line">tf.test.is_gpu_available()   #查看GPU版本信息并返回gpu是否可用</span><br><span class="line">exit()			 #退出python环境</span><br></pre></td></tr></table></figure>
+
+<p>8.安装 opencv-python&#x3D;&#x3D;4.5.5.62<br>Anaconda 库中并没有收录该版本包，采用本地包安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install /path/to/package.whl ##最好采用绝对路径</span><br></pre></td></tr></table></figure>
+
+<p>9.安装 numpy&#x3D;&#x3D;1.19.5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install numpy=1.19.5</span><br></pre></td></tr></table></figure>
+
+<p>10.安装 Pillow&#x3D;&#x3D;8.4.0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install Pillow=8.4.0</span><br></pre></td></tr></table></figure>
+
+<p>11.安装 tensorboard&#x3D;&#x3D;2.7.0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install tensorboard=2.7.0</span><br></pre></td></tr></table></figure>
+
+<p>12.安装 tqdm</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install tqdm</span><br></pre></td></tr></table></figure>
+
+<p>13.从 github 将 Tensorflow-yoloV6 项目克隆到本地</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280931166.png" alt="github相关仓库"> 14.数据准备和处理<br>将公开的数据集转化成所需格式，并放到指定目录。 15.初步训练<br>打开 VScode，用搭建的 Anaconda 环境运行 train.py， 16.预测步骤<br>在 Anaconda 环境下运行 predict.py，然后根据提示输入需要预测的图片路径。<br>效果预览<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280933660.png" alt="效果预览"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://ichinoseyuu.github.io">Ichinoseyuu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ichinoseyuu.github.io/2024/03/28/YOLOv6-Traffic-signs/">https://ichinoseyuu.github.io/2024/03/28/YOLOv6-Traffic-signs/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ichinoseyuu.github.io" target="_blank">Ichinoseyuu的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">-Python</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">-深度学习</a></div><div class="post_share"><div class="social-share" data-image="/img/touxiang.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/09/07/DSPFilter/" title="利用DSP实现数字滤波器（教程）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">利用DSP实现数字滤波器（教程）</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ichinoseyuu</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://b23.tv/n3qgmLA" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://github.com/ichinoseyuu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到ichinoseyuu的博客！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/28/YOLOv6-Traffic-signs/" title="YOLOv6_Traffic_signs">YOLOv6_Traffic_signs</a><time datetime="2024-03-28T01:12:24.000Z" title="发表于 2024-03-28 09:12:24">2024-03-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/07/DSPFilter/" title="利用DSP实现数字滤波器（教程）">利用DSP实现数字滤波器（教程）</a><time datetime="2023-09-07T11:07:39.000Z" title="发表于 2023-09-07 19:07:39">2023-09-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/01/niukecode/" title="每日一道算法题">每日一道算法题</a><time datetime="2023-09-01T04:42:51.000Z" title="发表于 2023-09-01 12:42:51">2023-09-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/game2048/" title="我复刻了一个经典小游戏：2048">我复刻了一个经典小游戏：2048</a><time datetime="2023-08-01T14:24:37.000Z" title="发表于 2023-08-01 22:24:37">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/09/project1024/" title="个人开发的小游戏——project1024">个人开发的小游戏——project1024</a><time datetime="2023-07-09T09:19:44.000Z" title="发表于 2023-07-09 17:19:44">2023-07-09</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202305301714146.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ichinoseyuu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>function getGiscusTheme (theme) {
+  return theme === 'dark' ? 'dark' : 'lightsearch'
+}
+
+function loadGiscus () {
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': 'ichinoseyuu/giscus',
+    'data-repo-id': 'R_kgDOKOIXyA',
+    'data-category-id': 'DIC_kwDOKOIXyM4CZBBG',
+    'data-mapping': 'pathname',
+    'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme (theme) {
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame')
+    if (!iframe) return
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: getGiscusTheme(theme)
+    }
+  });
+}
+
+btf.addModeChange('giscus', changeGiscusTheme)
+
+if ('Giscus' === 'Giscus' || !true) {
+  if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
