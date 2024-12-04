@@ -37,7 +37,7 @@
 
 #web_bg {
     /* 背景图像的地址（url括号里）  */
-    background: url(https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202305301714146.jpg);
+    background: url(https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041420391.png);
     /* 背景图像不重复 */
     background-repeat: no-repeat;
     /* 背景图像大小 */
@@ -77,3 +77,4 @@
       font-size: 13px;
   }
 }
+
