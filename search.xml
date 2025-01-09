@@ -13,14 +13,14 @@
       
       <categories>
           
-          <category> -笔记 </category>
+          <category> 笔记 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Python </tag>
+            <tag> Python </tag>
             
         </tags>
       
@@ -38,14 +38,14 @@
       
       <categories>
           
-          <category> -笔记 </category>
+          <category> 笔记 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -git </tag>
+            <tag> git </tag>
             
         </tags>
       
@@ -63,14 +63,14 @@
       
       <categories>
           
-          <category> -分享 </category>
+          <category> 分享 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Music </tag>
+            <tag> 音乐 </tag>
             
         </tags>
       
@@ -88,16 +88,16 @@
       
       <categories>
           
-          <category> -发布 </category>
+          <category> 发布 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Python </tag>
+            <tag> Python </tag>
             
-            <tag> -深度学习 </tag>
+            <tag> 深度学习 </tag>
             
         </tags>
       
@@ -115,14 +115,16 @@
       
       <categories>
           
-          <category> -教程 </category>
+          <category> 教程 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Matlab，-CCS </tag>
+            <tag> Matlab </tag>
+            
+            <tag> CCS </tag>
             
         </tags>
       
@@ -140,16 +142,16 @@
       
       <categories>
           
-          <category> -发布 </category>
+          <category> 发布 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Unity </tag>
+            <tag> Unity </tag>
             
-            <tag> -C# </tag>
+            <tag> C# </tag>
             
         </tags>
       
@@ -167,16 +169,16 @@
       
       <categories>
           
-          <category> -发布 </category>
+          <category> 发布 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Unity </tag>
+            <tag> Unity </tag>
             
-            <tag> -C# </tag>
+            <tag> C# </tag>
             
         </tags>
       
@@ -194,16 +196,18 @@
       
       <categories>
           
-          <category> -教程 </category>
+          <category> 教程 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> -Hexo </tag>
+            <tag> Blog </tag>
             
-            <tag> -Github -Blog </tag>
+            <tag> Hexo </tag>
+            
+            <tag> GitHub </tag>
             
         </tags>
       
