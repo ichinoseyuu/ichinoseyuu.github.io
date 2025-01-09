@@ -1,4 +1,5 @@
 ---
 title: 分类
 date: 2025-01-09 19:36:35
+type: "categories"
 ---

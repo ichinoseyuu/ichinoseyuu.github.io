@@ -1,8 +1,13 @@
 ---
 title: 个人开发的小游戏——project1024
 date: 2023-07-09 17:19:44
-tags: [-Unity, -C#]
-categories: -发布
+description: 2.5d俯视角休闲射击小游戏
+categories: 发布
+top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tags: 
+    - Unity
+    - C#
 ---
 
 ---

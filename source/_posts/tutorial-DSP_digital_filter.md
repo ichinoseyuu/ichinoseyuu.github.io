@@ -1,8 +1,13 @@
 ---
 title: 利用DSP实现数字滤波器
 date: 2023-09-07 19:07:39
-tags: [-Matlab，-CCS]
-categories: -教程
+description: 利用DSP原理设计带通滤波器，实现音频去噪
+categories: 教程
+top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tags: 
+    - Matlab
+    - CCS
 ---
 
 ---

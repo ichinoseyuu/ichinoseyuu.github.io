@@ -1,8 +1,12 @@
 ---
 title: python创建自定义包
 date: 2025-01-09 16:37:01
-tags: [-Python]
-categories: -笔记
+description: python创建自定义包时，__init__.py文件的书写规范
+categories: 笔记
+top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tags:
+  - Python
 ---
 
 <h1 style="font-size: 20px;">python中自定义包时，初始化文件的书写规范</h1>

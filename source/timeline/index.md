@@ -1,4 +1,5 @@
 ---
 title: 日志
 date: 2025-01-09 19:39:27
+type: "timeline"
 ---

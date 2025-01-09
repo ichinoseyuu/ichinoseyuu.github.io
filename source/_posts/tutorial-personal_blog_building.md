@@ -1,8 +1,14 @@
 ---
-title: Hexo+GitHub搭建个人博客
+title: Hexo+GitHub搭建个人博客(一)
 date: 2023-05-30 18:41:44
-tags: [-Hexo, -Github -Blog]
-categories: -教程
+description: Hexo+GitHub搭建个人博客，从零开始，从环境准备到搭建完成。
+categories: 教程
+top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tags: 
+    - Blog
+    - Hexo
+    - GitHub
 ---
 
 ---

@@ -1,8 +1,12 @@
 ---
 title: 音乐分享
 date: 2024-07-16 13:57:48
-tags: [-Music]
-categories: -分享
+description: 分享一些喜欢的音乐
+categories: 分享
+top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tags: 
+    - 音乐
 ---
 
 ---
