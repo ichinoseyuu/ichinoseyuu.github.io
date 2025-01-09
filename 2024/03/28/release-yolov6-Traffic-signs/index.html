@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>基于深度学习的交通标识检测 | ichinoseyuu的小站</title><meta name="author" content="ichinoseyuu"><meta name="copyright" content="ichinoseyuu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="更新日志2024-05-11 -写UI中途发现版本兼容问题，现修正前期安装流程，更新了打包流程2024-04-07 -新增遇到的问题分栏2024-04-05 -简单记录了 Anaconda 的基本指令2024-03-28 -完成了基础的环境搭建记录  前言2024-03-28：时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于深度学习的交通标识检测">
+<meta property="og:url" content="https://ichinoseyuu.github.io/2024/03/28/release-yolov6-Traffic-signs/index.html">
+<meta property="og:site_name" content="ichinoseyuu的小站">
+<meta property="og:description" content="更新日志2024-05-11 -写UI中途发现版本兼容问题，现修正前期安装流程，更新了打包流程2024-04-07 -新增遇到的问题分栏2024-04-05 -简单记录了 Anaconda 的基本指令2024-03-28 -完成了基础的环境搭建记录  前言2024-03-28：时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ichinoseyuu.github.io/img/touxiang.png">
+<meta property="article:published_time" content="2024-03-28T01:12:24.000Z">
+<meta property="article:modified_time" content="2025-01-09T08:56:12.813Z">
+<meta property="article:author" content="ichinoseyuu">
+<meta property="article:tag" content="-Python">
+<meta property="article:tag" content="-深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ichinoseyuu.github.io/img/touxiang.png"><link rel="shortcut icon" href="/img/touxiang.png"><link rel="canonical" href="https://ichinoseyuu.github.io/2024/03/28/release-yolov6-Traffic-signs/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于深度学习的交通标识检测',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="/css/mycss.css"><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ichinoseyuu的小站" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/timeline/"><i class="fa-fw fas fa-timeline"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">ichinoseyuu的小站</span></a><a class="nav-page-title" href="/"><span class="site-name">基于深度学习的交通标识检测</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/timeline/"><i class="fa-fw fas fa-timeline"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">基于深度学习的交通标识检测</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-28T01:12:24.000Z" title="发表于 2024-03-28 09:12:24">2024-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-09T08:56:12.813Z" title="更新于 2025-01-09 16:56:12">2025-01-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8F%91%E5%B8%83/">-发布</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+<h3 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h3><p>2024-05-11 -写UI中途发现版本兼容问题，现修正前期安装流程，更新了打包流程<br>2024-04-07 -新增遇到的问题分栏<br>2024-04-05 -简单记录了 Anaconda 的基本指令<br>2024-03-28 -完成了基础的环境搭建记录</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>2024-03-28：时间过得很快，大学四年就这么匆匆溜走，最近也是进入了毕设阶段，目前已有一些进展，正好有时间，那就大致记录一下目前的情况吧。<br>2024-05-11：这可能是博主第一次接触深度学习领域，也可能是最后一次，希望这博客能对有需要的人有所帮助。<br>2024-07-16：项目已打包，<a target="_blank" rel="noopener" href="https://github.com/ichinoseyuu/yolov6-Traffic_signs">点击此处跳转</a></p>
+<hr>
+<h3 id="一、环境搭建"><a href="#一、环境搭建" class="headerlink" title="一、环境搭建"></a>一、环境搭建</h3><h4 id="下载并安装-Acnconda3"><a href="#下载并安装-Acnconda3" class="headerlink" title="下载并安装 Acnconda3"></a>下载并安装 Acnconda3</h4><p>在官网下载Acnconda3，<a target="_blank" rel="noopener" href="https://www.anaconda.com/">点击此处跳转</a></p>
+<h4 id="查看系统版本支持"><a href="#查看系统版本支持" class="headerlink" title="查看系统版本支持"></a>查看系统版本支持</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280921933.png" alt="系统版本支持"></p>
+<h4 id="选择-Tensorflow-版本"><a href="#选择-Tensorflow-版本" class="headerlink" title="选择 Tensorflow 版本"></a>选择 Tensorflow 版本</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280922051.png" alt="Tensorflow版本"></p>
+<h4 id="下载-cuda11-0-及-cuDNN8-0，安装-cuda11-0，并将-cuDNN-解压放入-cuda-安装文件夹"><a href="#下载-cuda11-0-及-cuDNN8-0，安装-cuda11-0，并将-cuDNN-解压放入-cuda-安装文件夹" class="headerlink" title="下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹"></a>下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹</h4><h4 id="检查是否配置成功"><a href="#检查是否配置成功" class="headerlink" title="检查是否配置成功"></a>检查是否配置成功</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">####　nvcc -V ##查看安装状态</span><br></pre></td></tr></table></figure>
+
+<h4 id="用-Anaconda-配置虚拟环境-Tensorflow24"><a href="#用-Anaconda-配置虚拟环境-Tensorflow24" class="headerlink" title="用 Anaconda 配置虚拟环境 Tensorflow24"></a>用 Anaconda 配置虚拟环境 Tensorflow24</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conda create -n Tensorflow24 python=3.8 ##创建一个虚拟环境</span><br><span class="line">conda activate Tensorflow24  ##进入环境</span><br><span class="line">##安装Tensorflow2.4</span><br><span class="line">pip install tensorflow==2.4.0 -i https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">##安装相同版本的keras</span><br><span class="line">pip install keras==2.4.0 -i https://pypi.mirrors.ustc.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python                 #进入python环境</span><br><span class="line">import tensorflow as tf    #导入Tensorflow</span><br><span class="line">tf.test.is_gpu_available()   #查看GPU版本信息并返回gpu是否可用</span><br><span class="line">exit()    #退出python环境</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装必要的包文件"><a href="#安装必要的包文件" class="headerlink" title="安装必要的包文件"></a>安装必要的包文件</h4><p>这些包都需要安装在Tensorflow24环境下。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pip install opencv-python==4.9.0.80 #安装不上可以下载到本地安装</span><br><span class="line">conda install numpy==1.19.5</span><br><span class="line">conda install Pillow=8.4.0</span><br><span class="line">conda install tensorboard=2.7.0</span><br><span class="line">conda install tqdm</span><br><span class="line">Pip install pycocotools</span><br><span class="line">pip install matplotlib=3.2.2</span><br></pre></td></tr></table></figure>
+
+<h4 id="从-github-将-Tensorflow-yoloV6-项目克隆到本地"><a href="#从-github-将-Tensorflow-yoloV6-项目克隆到本地" class="headerlink" title="从 github 将 Tensorflow-yoloV6 项目克隆到本地"></a>从 github 将 Tensorflow-yoloV6 项目克隆到本地</h4><p>该项目是基于 bubbliiiing大佬的项目编写的，大部分保留了源代码。 <a target="_blank" rel="noopener" href="https://github.com/bubbliiiing/yolox-tf2">点击此处跳转</a><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202403280931166.png" alt="github相关仓库"></p>
+<h4 id="数据准备和处理"><a href="#数据准备和处理" class="headerlink" title="数据准备和处理"></a>数据准备和处理</h4><p>自己做数据集，准备足够的带有交通标识的图片，然后在 Anaconda 里下载输入 pip install labelimg 命令下载安装 Labelimg。<br>重要：使用该软件进行数据集的标注，在使用时会有闪退报错的情况，提示传输的数据类型不正确，根据报错提示到指定文件的指定代码处进行修改，对预传输的数据进行强制转换成需要的数据类型即可。</p>
+<p>使用公开的数据集，公开的数据集可能需要转换格式，需要自行编写代码转化成 VOC 格式，并放到指定目录，公开数据集的标注不一定适配想要的效果，建议还是自行准备数据集。</p>
+<h4 id="初步训练"><a href="#初步训练" class="headerlink" title="初步训练"></a>初步训练</h4><p>打开 VScode，用搭建的 Anaconda 环境运行 train.py。</p>
+<p>训练时长跟gpu核心数、数据集的大小、训练的世代次数有关，数据集的大小决定每个训练世代的时长，模型参数则可以设置训练的世代次数，训练的世代次数越多，训练时长也就越长，我的数据集花了 8 个小时去训练。</p>
+<hr>
+<h3 id="二、PyQt5"><a href="#二、PyQt5" class="headerlink" title="二、PyQt5"></a>二、PyQt5</h3><h4 id="常见-GUI-框架"><a href="#常见-GUI-框架" class="headerlink" title="常见 GUI 框架"></a>常见 GUI 框架</h4><p>PyQt5：Qt 是一个跨平台的 C++图形用于界面库。QT 一度被诺基亚使用，后出售芬兰的软件公司 Digia Oyj。PyQt5 是基于 Digia 公司 Qt5 的 Python 接口，由一组 Python 模块构成。PyQt5 本身拥有超过 620 个类和 6000 函数及方法。在可以运行于多个平台，包括：Unix，Windows，Mac OS。</p>
+<p>Pyside6：Pyside 是 QT 公司官方提供 Python 包，上一版本为 Pyside2，对应的是 QT5，最新版命名规则进行了调整，更改为 Pyside6，对应的是 QT6 版本。由于官方出品的比较看好，缺点是发布比较晚，资料没有 PyQt5 多。</p>
+<p>Tkinter：Python 内置的 GUI 框架，使用 TCL 实现，Python 中内嵌了 TCL 解释器，使用它的时候不用安装额外的扩展包，直接 import，跨平台。不足之处在于 UI 布局全靠代码实现，只有 15 种常用部件，显示效果简陋。</p>
+<p><font color = LightSeaGreen>编写UI界面需要一定的面向对象编程基础，理解程序设计模式。<br></font>  </p>
+<h4 id="在-Anaconda-下安装-pyqt5"><a href="#在-Anaconda-下安装-pyqt5" class="headerlink" title="在 Anaconda 下安装 pyqt5"></a>在 Anaconda 下安装 pyqt5</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pyqt5</span><br><span class="line">pip3 install pyqt5-tools</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Qt-Designer-并打开"><a href="#安装-Qt-Designer-并打开" class="headerlink" title="安装 Qt Designer 并打开"></a>安装 Qt Designer 并打开</h4><p>方法一：安装 Anaconda3 时会自动安装，在Anaconda3输入命令就能打开<br>注意：需要在添加环境变量，否则无法在 conda 环境下调用，只能手动打开。</p>
+<p>方法二：去 GitHub 开源项目地址下载。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PyQt5/QtDesigner/releases/tag/5.15.0">项目地址</a></p>
+<h4 id="Qt-Designer-的简单使用"><a href="#Qt-Designer-的简单使用" class="headerlink" title="Qt Designer 的简单使用"></a>Qt Designer 的简单使用</h4><p>CSDN 上有许多博主写有相关教程，B 站上有许多 up 主出过很多相关视频</p>
+<p>Qt Designer 里面的控件界面编写需要前端基础，有 CSS 基础的可以很快上手，没有基础的也可以通过查看官方文档去查看控件属性，然后在编写样式。</p>
+<p><a target="_blank" rel="noopener" href="https://doc.qt.io/qt-6/stylesheet-reference.html">QT官方文档</a></p>
+<h4 id="实现UI界面的功能"><a href="#实现UI界面的功能" class="headerlink" title="实现UI界面的功能"></a>实现UI界面的功能</h4><p>在Qt Designer将界面设计完成后，在vscode中输入指令将.ui文件转化成.py文件，转换完成后就会生成一个窗口类，然后新建一个python文件作为程序的入口，并继承这个窗口类，代码请参考项目具体内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyuic5 -x fileName.ui -o fileName.py ##将.ui文件转化成.py文件</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="python-程序打包"><a href="#python-程序打包" class="headerlink" title="python 程序打包"></a>python 程序打包</h3><h4 id="安装-pyinstaller"><a href="#安装-pyinstaller" class="headerlink" title="安装 pyinstaller"></a>安装 pyinstaller</h4><p>在Tensorflow24环境中安装pyinstaller</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip pyinstaller </span><br></pre></td></tr></table></figure>
+
+<h4 id="打包项目"><a href="#打包项目" class="headerlink" title="打包项目"></a>打包项目</h4><p>在vscode中执行以下命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -D -c flieName.py ##生成带命令行窗口的文件夹包</span><br><span class="line">pyinstaller -D -w flieName.py ##生成不带命令行窗口的文件夹包</span><br><span class="line">pyinstaller --help ##查看pyinstaller的帮助文档</span><br></pre></td></tr></table></figure>
+
+<h3 id="Anaconda-常用指令"><a href="#Anaconda-常用指令" class="headerlink" title="Anaconda 常用指令"></a>Anaconda 常用指令</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">conda info -e    ##查看所有环境</span><br><span class="line">conda create --name myenv  ##创建一个新环境</span><br><span class="line">conda activate myenv   ##激活一个环境</span><br><span class="line">conda install package_name=version ##安装包到环境中</span><br><span class="line">conda update conda   ##更新 Conda</span><br><span class="line">conda update --all   ##已安装的包</span><br><span class="line">conda list    ##查看当前环境下已安装的包</span><br><span class="line">conda search package_name  ##查找可用包的信息</span><br><span class="line">conda remove package_name  ##删除一个包</span><br><span class="line">conda env remove --name myenv  ##删除一个环境</span><br><span class="line">conda --help ##查看anaconda的帮助文档</span><br><span class="line">pip install /path/to/package.whl  ##安装本地包</span><br></pre></td></tr></table></figure>
+
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ichinoseyuu.github.io">ichinoseyuu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ichinoseyuu.github.io/2024/03/28/release-yolov6-Traffic-signs/">https://ichinoseyuu.github.io/2024/03/28/release-yolov6-Traffic-signs/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ichinoseyuu.github.io" target="_blank">ichinoseyuu的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">-Python</a><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">-深度学习</a></div><div class="post-share"><div class="social-share" data-image="/img/touxiang.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/16/share-music/" title="音乐分享"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">音乐分享</div></div><div class="info-2"><div class="info-item-1">  2024-07-16 1.绝区零六分街BGM-60%的日常·悠闲最近绝区零公测，这首BGM被我单曲循环了，但是Q音，网抑云都搜不到啊，于是我把它录了下来并做成mp3格式。 蓝奏云链接：点击此处跳转  </div></div></div></a><a class="pagination-related" href="/2023/09/07/tutorial-DSP_digital_filter/" title="利用DSP实现数字滤波器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">利用DSP实现数字滤波器</div></div><div class="info-2"><div class="info-item-1"> 前言大学的最后一个课程设计终于是完成了，虽然实际耗费的时间不到 10 小时（中间一直在摸鱼），不打算考研甚至有点闲得无聊，一时头脑发热想写下这篇博客。笔者主要使用的软件是 CCSv2 版本和 Matlab2021，使用不同版本可能会出现不可预知的一些问题。  主要思路 使用 Matlab 对音频进行加噪处理，并将数据输出到.dat 格式文件中。 在 CCS 中设计一个滤波器，将 Matlab 导出的数据进行处理，并输出到相应的.dat 文件中。 使用 Matlab 读取 CCS 输出的数据与滤波前进行对比。  前期准备 首先，肯定是安装好所需要的软件。 准备一段音频，你可以使用自己录制的音频，也可以使用一首歌曲。ps：建议时间不要过长，一句话即可，过长会使 DSP 处理的时间变得很长。  使用 Matlab 对音频进行处理12345678910111213141516171819202122232425262728293031323334353637Frequency_in = 2500;    %需要引入的干扰正弦波的频率result_Fs = 8000;   %音频采样率...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/09/note-create_custom_packages_in_python/" title="python创建自定义包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-09</div><div class="info-item-2">python创建自定义包</div></div><div class="info-2"><div class="info-item-1">python中自定义包时，初始化文件的书写规范  1. 项目结构示例 SmodernUI/:  1234567891011121314151617181920212223242526272829SmodernUI/│├── component/│   ├── ui/│   │   ├── __init__.py│   │   ├── Ui_message.py│   │   └── Ui_tip.py│   ││   ├── widget/│   │   ├── __init__.py│   │   ├── button.py│   │   └── tip.py│   ││   └── window/│       ├── __init__.py│       └── message.py│├── core/│   ├── __init__.py│   ├── color.py│   ├── globals.py│   ├── animation.py│   └── func.py│├── resource/│   ├── __init__.py│   └──...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ichinoseyuu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://b23.tv/n3qgmLA" target="_blank" title="Bilibili"><i class="fab fa-bilibili"></i></a><a class="social-icon" href="https://github.com/ichinoseyuu" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到ichinoseyuu的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-number">1.</span> <span class="toc-text">更新日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">一、环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85-Acnconda3"><span class="toc-number">3.1.</span> <span class="toc-text">下载并安装 Acnconda3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E6%94%AF%E6%8C%81"><span class="toc-number">3.2.</span> <span class="toc-text">查看系统版本支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9-Tensorflow-%E7%89%88%E6%9C%AC"><span class="toc-number">3.3.</span> <span class="toc-text">选择 Tensorflow 版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-cuda11-0-%E5%8F%8A-cuDNN8-0%EF%BC%8C%E5%AE%89%E8%A3%85-cuda11-0%EF%BC%8C%E5%B9%B6%E5%B0%86-cuDNN-%E8%A7%A3%E5%8E%8B%E6%94%BE%E5%85%A5-cuda-%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">3.4.</span> <span class="toc-text">下载 cuda11.0 及 cuDNN8.0，安装 cuda11.0，并将 cuDNN 解压放入 cuda 安装文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="toc-number">3.5.</span> <span class="toc-text">检查是否配置成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8-Anaconda-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83-Tensorflow24"><span class="toc-number">3.6.</span> <span class="toc-text">用 Anaconda 配置虚拟环境 Tensorflow24</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="toc-number">3.7.</span> <span class="toc-text">检查是否安装成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E5%8C%85%E6%96%87%E4%BB%B6"><span class="toc-number">3.8.</span> <span class="toc-text">安装必要的包文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E-github-%E5%B0%86-Tensorflow-yoloV6-%E9%A1%B9%E7%9B%AE%E5%85%8B%E9%9A%86%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-number">3.9.</span> <span class="toc-text">从 github 将 Tensorflow-yoloV6 项目克隆到本地</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87%E5%92%8C%E5%A4%84%E7%90%86"><span class="toc-number">3.10.</span> <span class="toc-text">数据准备和处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E8%AE%AD%E7%BB%83"><span class="toc-number">3.11.</span> <span class="toc-text">初步训练</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81PyQt5"><span class="toc-number">4.</span> <span class="toc-text">二、PyQt5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-GUI-%E6%A1%86%E6%9E%B6"><span class="toc-number">4.1.</span> <span class="toc-text">常见 GUI 框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-Anaconda-%E4%B8%8B%E5%AE%89%E8%A3%85-pyqt5"><span class="toc-number">4.2.</span> <span class="toc-text">在 Anaconda 下安装 pyqt5</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Qt-Designer-%E5%B9%B6%E6%89%93%E5%BC%80"><span class="toc-number">4.3.</span> <span class="toc-text">安装 Qt Designer 并打开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Qt-Designer-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">4.4.</span> <span class="toc-text">Qt Designer 的简单使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0UI%E7%95%8C%E9%9D%A2%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number">4.5.</span> <span class="toc-text">实现UI界面的功能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python-%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">python 程序打包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-pyinstaller"><span class="toc-number">5.1.</span> <span class="toc-text">安装 pyinstaller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.2.</span> <span class="toc-text">打包项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anaconda-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">Anaconda 常用指令</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2025/01/09/hello-world/" title="Hello World">Hello World</a><time datetime="2025-01-09T10:01:24.844Z" title="发表于 2025-01-09 18:01:24">2025-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/09/note-create_custom_packages_in_python/" title="python创建自定义包">python创建自定义包</a><time datetime="2025-01-09T08:37:01.000Z" title="发表于 2025-01-09 16:37:01">2025-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/25/note-git_common_commands/" title="git常用命令汇总">git常用命令汇总</a><time datetime="2024-10-25T04:58:39.000Z" title="发表于 2024-10-25 12:58:39">2024-10-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/16/share-music/" title="音乐分享">音乐分享</a><time datetime="2024-07-16T05:57:48.000Z" title="发表于 2024-07-16 13:57:48">2024-07-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/28/release-yolov6-Traffic-signs/" title="基于深度学习的交通标识检测">基于深度学习的交通标识检测</a><time datetime="2024-03-28T01:12:24.000Z" title="发表于 2024-03-28 09:12:24">2024-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By ichinoseyuu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'ichinoseyuu/giscus',
+      'data-repo-id': 'R_kgDOKOIXyA',
+      'data-category-id': 'DIC_kwDOKOIXyM4CZBBG',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !true) {
+    if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
