@@ -1,0 +1,80 @@
+/* 滚动条 */
+/* 
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+   
+  ::-webkit-scrollbar-track {
+    background-color: rgba(73, 177, 245, 0.2);
+    border-radius: 2em;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background-color: #49b1f5;
+    background-image: -webkit-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.4) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.4) 75%,
+      transparent 75%,
+      transparent
+    );
+    border-radius: 2em;
+  }
+   
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+   
+  ::-moz-selection {
+    color: #fff;
+    background-color: #49b1f5;
+  }
+*/
+
+#web_bg {
+    /* 背景图像的地址（url括号里）  */
+    background: url(https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041420391.png);
+    /* 背景图像不重复 */
+    background-repeat: no-repeat;
+    /* 背景图像大小 */
+    background-size: cover;
+}
+/* 主页所有文章页面背景 */
+#aside_content .card-widget, #recent-posts>.recent-post-item, .layout_page>div:first-child:not(.recent-posts), .layout_post>#page, .layout_post>#post, .read-mode .layout_post>#post{
+  /* 以下代表透明度为0.5 */
+  background: rgba(255,255,255,.5);
+}
+/*侧边栏页面*/
+#aside-content>.card-widget  {
+  background: rgba(255,255,255,.5);
+}
+#aside-content>.sticky_layout>.card-widget{
+  background: rgba(255,255,255,.5);
+}
+/*文章页面*/
+.layout>#post{
+  background: rgba(255,255,255,.5);
+}
+/*分类页面*/
+.layout>#page{
+  background: rgba(255,255,255,.5);
+}
+/*时间轴页面*/
+.layout>#archive{
+  background: rgba(255,255,255,.5);
+}
+
+
+/*移动端优化：去除归档、标签、最新文章、公告、、只保留网站统计*/
+@media screen and (max-width: 800px) {
+  #aside_content
+  div:not(:last-child) {
+      display: none;
+      font-size: 13px;
+  }
+}
+

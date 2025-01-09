@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>ichinoseyuu的小站</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://ichinoseyuu.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://ichinoseyuu.github.io/"/>
   <updated>2025-01-09T10:01:24.844Z</updated>
-  <id>http://example.com/</id>
+  <id>https://ichinoseyuu.github.io/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>ichinoseyuu</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2025/01/09/hello-world/"/>
-    <id>http://example.com/2025/01/09/hello-world/</id>
+    <link href="https://ichinoseyuu.github.io/2025/01/09/hello-world/"/>
+    <id>https://ichinoseyuu.github.io/2025/01/09/hello-world/</id>
     <published>2025-01-09T10:01:24.844Z</published>
     <updated>2025-01-09T10:01:24.844Z</updated>
     
