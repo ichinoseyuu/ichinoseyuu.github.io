@@ -1,0 +1,137 @@
+/* 滚动条 */
+::-webkit-scrollbar { 
+    width: 5px;
+    height: 5px;
+  } /* 滚动条宽度，设置垂直和水平滚动条的宽度 */
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(179, 206, 246,0.5);
+  } /* 滚动条轨道，设置背景 */
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(170, 151, 146); /* 基础色 */
+    /* 带状效果
+    background-image: -webkit-linear-gradient(
+      45deg, 倾斜角度 
+      rgba(255, 255, 255, 0.4) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.4) 75%,
+      transparent 75%,
+      transparent
+    ); 带状效果 
+    */
+    border-radius: 2em;
+  } /* 滚动条滑块 */
+
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  } /* 滚动条的右下角区域，当同时有水平和垂直滚动条时交叉的区域 */
+
+  /*选中的文本样式，只对 Firefox 浏览器
+  ::-moz-selection {
+    color: #f1f1f1b6;
+    background-color: #f285d5d0;
+  } */
+
+
+/*移动端优化：去除归档、标签、最新文章、公告、、只保留网站统计*/
+@media screen and (max-width: 800px) {
+  #aside_content
+  div:not(:last-child) {
+      display: none;
+      font-size: 13px;
+  }
+}
+
+/*全局样式*/
+#content-inner
+
+/*全局颜色*/
+  {
+  --light_bg_color: hsla(0, 0%, 100%, .6);
+  /*日间背景颜色*/
+  --dark_bg_color: hsla(0, 0%, 7%, .8);
+  /*夜间背景颜色*/
+  --light_page_color: hsla(0, 0%, 100%, .5);
+  /*日间页面颜色*/
+  --dark_page_color: hsla(0, 0%, 7%, .8)
+  /*夜间页面颜色*/
+}
+
+body
+
+/*全局盒子*/
+  {
+  cursor: url('/static/cur/default.cur'), default;
+  /*替换鼠标指针，变指针*/
+}
+
+a,
+/*各种功能性按钮*/
+button,
+img,
+#nav .site-page
+
+/*首页导航*/
+  {
+  cursor: url('/static/cur/pointer.cur'), default;
+  /*替换鼠标指针，变小手*/
+}
+
+/*日间样式*/
+[data-theme="light"] #recent-posts .recent-post-item,
+/*首页文章盒子*/
+[data-theme="light"] #aside-content .card-widget,
+/*侧边栏*/
+[data-theme="light"] #post,
+/*文章*/
+[data-theme="light"] #page,
+/*页面*/
+[data-theme="light"] .wl-panel,
+/*waline评论面板*/
+[data-theme="light"] #footer
+
+/*页脚*/
+  {
+  background: var(--light_page_color);
+  /*背景颜色*/
+}
+
+[data-theme="light"] body
+
+/*全局盒子-渐变背景*/
+  {
+  background-size: 400% 400%;
+  height: 100vh;
+  background: linear-gradient(-45deg, #dca5cb, #a1d6d4, #a1d6d4, #dca5cb) fixed;
+}
+
+/*夜间样式*/
+[data-theme="dark"] #recent-posts .recent-post-item,
+/*首页文章盒子*/
+[data-theme="dark"] #aside-content .card-widget,
+/*侧边栏盒子*/
+[data-theme="dark"] #post,
+/*文章*/
+[data-theme="dark"] #page,
+/*页面*/
+[data-theme="dark"] .wl-panel,
+/*Waline评论面板*/
+[data-theme="dark"] #footer
+
+/*页脚*/
+  {
+  background: var(--dark_page_color);
+  /*背景颜色*/
+}
+
+[data-theme="dark"] body
+
+/*全局盒子-渐变背景*/
+  {
+  background-size: 400% 400%;
+  height: 100vh;
+  background: linear-gradient(-45deg, #7a4e6c, #497271, #497271, #7a4e6c) fixed;
+}
