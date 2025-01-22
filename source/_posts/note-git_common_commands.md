@@ -3,8 +3,7 @@ title: git常用命令汇总
 date: 2024-10-25 12:58:39
 description:  汇总了一些常用的git命令
 categories: 笔记
-top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501230052010.png
 tags: 
     - git
 

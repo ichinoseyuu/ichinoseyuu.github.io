@@ -12,13 +12,14 @@ nav:
 
 menu:
   主页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
-  菜单||fas fa-list:
-    # 音乐: /music/ || fas fa-music
-    # 电影: /movies/ || fas fa-video
-    # 友链: /link/ || fas fa-link
+  文章||fas fa-book:
+    归档: /archives/ || fas fa-archive
     标签: /tags/ || fas fa-tags
     分类: /categories/ || fas fa-folder-open
+  更多||fas fa-list:
+    音乐: /music/ || fas fa-music
+    电影: /movies/ || fas fa-video
+    友链: /link/ || fas fa-link
     留言板: /messageboard/ || fas fa-comment
     关于: /about/ || fas fa-heart
     日志: /timeline/ || fas fa-timeline
@@ -29,9 +30,9 @@ menu:
 
 code_blocks:
   # 代码块主题: darker / pale night / light / ocean / false
-  theme: darker
+  theme: light
   # 是否使用 Mac 风格
-  macStyle: true
+  macStyle: false
   # 代码块高度限制（单位: px）
   height_limit: false
   # 是否自动换行
@@ -43,7 +44,7 @@ code_blocks:
   # 是否显示语言标签
   language: true
   # true: 收缩代码块 | false: 展开代码块 | none: 展开代码块并隐藏按钮
-  shrink: true
+  shrink: false
   # 是否显示全屏显示代码块按钮
   fullpage: false
 
@@ -76,26 +77,26 @@ disable_top_img: false
 default_top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
 
 # 主页的横幅图片
-index_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041419037.png
+index_img: false
 
 # 归档页的横幅图片
-archive_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+archive_img:
 
 # 注意: 是标签页（单个标签），不是标签页面（所有标签）
-tag_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tag_img:
 
 # 标签页的横幅图片，可以为每个标签设置横幅图片
 # 格式:
 #  - 标签名: 图片链接
-tag_per_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+tag_per_img:
 
 # 注意: 是分类页（单个分类），不是分类页面（所有分类）
-category_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+category_img:
 
 # 分类页的横幅图片，可以为每个分类设置横幅图片
 # 格式:
 #  - 分类名: 图片链接
-category_per_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+category_per_img:
 
 # 页脚的背景图片
 footer_img: false
@@ -103,7 +104,7 @@ footer_img: false
 # 网站背景
 # 可以设置为颜色或图片
 # 图片格式: url(http://xxxxxx.com/xxx.jpg)
-background: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041420391.png
+background: false
 
 # 文章封面设置
 cover:
@@ -116,8 +117,7 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
-    #- https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501092351268.png
-    - https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041420391.png
+    - https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501230009572.png
 
 # 替换损坏的图片
 error_img:
@@ -195,15 +195,15 @@ subtitle:
   loop: true
   # 如果关闭打字机效果，副标题将仅显示 sub 的第一行内容
   sub:
-    - 人生路漫漫, 步履不停歇。
-    - 记住该记住的，改变能改变的。
+    - 人生路漫漫, 步履不停歇
+    - 记住该记住的，改变能改变的
     - 所有的不平凡都来自平凡
     - 谨慎是一种习惯
 
 # 首页文章佈局
 # 1: 行佈局
 # 2: 列布局
-index_layout: 6
+index_layout: 1
 
 # 在首页显示文章简介
 # 1: 描述
@@ -339,7 +339,7 @@ aside:
     description:
     button:
       # 是否显示按钮
-      enable: true
+      enable: false
       # 按钮图标
       icon: fab fa-github
       # 按钮文本
@@ -606,7 +606,7 @@ comments:
   # 如果不需要评论功能，保持为空
   # 选择：Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # 两个评论系统的格式：Disqus,Waline
-  use: giscus
+  use:
   # 按钮旁边显示评论系统名称
   text: true
   # 懒加载：评论系统将在评论元素进入浏览器视口时加载
@@ -729,11 +729,11 @@ twikoo:
 # 官方文档：https://giscus.app/
 giscus:
   # 仓库地址
-  repo: giscus/giscus
+  repo:
   # 仓库 ID
-  repo_id: MDEwOlJlcG9zaXRvcnkzNTE5NTgwNTM=
+  repo_id:
   # 分类 ID
-  category_id: DIC_kwDOFPp0Jc4CcjOR
+  category_id:
   # 主题配置，light 为浅色主题，dark 为深色主题
   theme:
     light: light
@@ -1215,7 +1215,7 @@ css_prefix: true
 inject:
   head:
     # - <link rel="stylesheet" href="/xxx.css">
-    - <link rel="stylesheet" href="/css/mycss.css">
+    - <link rel="stylesheet" href="/css/custom.css">
     - <link rel="stylesheet" href="/css/iconfont.css">
   bottom:
     # - <script src="xxxx"></script>

@@ -3,8 +3,7 @@ title: python创建自定义包
 date: 2025-01-09 16:37:01
 description: python创建自定义包时，__init__.py文件的书写规范
 categories: 笔记
-top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501230052930.png
 tags:
   - Python
 ---

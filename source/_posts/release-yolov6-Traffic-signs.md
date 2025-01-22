@@ -3,9 +3,8 @@ title: 基于深度学习的交通标识检测
 date: 2024-03-28 09:12:24
 description: 记录了基于深度学习的交通标识检测软件的开发过程
 categories: 发布
-top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-tags: 
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501230052896.png
+tags:
     - Python
     - 深度学习
 ---

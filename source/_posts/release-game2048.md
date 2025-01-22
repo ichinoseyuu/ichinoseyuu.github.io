@@ -3,9 +3,8 @@ title: 我复刻了一个经典小游戏：2048
 date: 2023-08-01 22:24:37
 description: 一个纯净无广告的 2048 游戏复刻版
 categories: 发布
-top_img: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202412041418031.png
-tags: 
+cover: https://cdn.jsdelivr.net/gh/ichinoseyuu/Image/202501230052049.png
+tags:
     - Unity
     - C#
 ---
